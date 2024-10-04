@@ -55,16 +55,17 @@ if uploaded_file is not None:
                 else:
                     st.warning('Cannot graph')
     with tab2:
-        col = st.columns(len(options))
-        x = []
-        for i in range(len(options)):
-            with col[i]:
-                n = st.number_input(options[i],0.0)
-            x.append(n)
-        if x == [0 for i in range(len(options))]:
-            names = name.replace(',',' or ')
-            st.warning(f'Please input: {names}')
-        else:
-            x = np.array([x])
-            y = model.predict(x)
-            st.success(f'Prediction: {y[0]:.4f}')
+        if options:
+            col = st.columns(len(options))
+            x = []
+            for i in range(len(options)):
+                with col[i]:
+                    n = st.number_input(options[i],0.0)
+                x.append(n)
+            if x == [0 for i in range(len(options))]:
+                names = name.replace(',',' or ')
+                st.warning(f'Please input: {names}')
+            else:
+                x = np.array([x])
+                y = model.predict(x)
+                st.success(f'Prediction: {y[0]:.4f}')
